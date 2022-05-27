@@ -4,7 +4,6 @@ hLine = plot(rand(1,10),'ButtonDownFcn','disp(''This executes'')');
 hLine.Tag = 'DoNotIgnore';
 h = rotate3d;
 h.ButtonDownFilter = @mycallback;
-h.ActionPostCallback =@mycallback;
 h.Enable = 'on';
 % mouse-click on the line
 function [flag] = mycallback(obj,event_obj)
@@ -14,4 +13,6 @@ if strcmpi(objTag,'DoNotIgnore')
    flag = true;
 else
    flag = false;
+end
+end
 end
