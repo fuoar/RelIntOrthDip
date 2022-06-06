@@ -4,16 +4,17 @@ clc
 clrmp = @(x) brewermap(x,"PuOr");
 
 % Code to modelise the emission pattern of a dipole
-% placed in n1 near an interface n1 and n2=air
+% in free space depending on the observation direction
 
 
 %% Parameters
 
 % dipole orientation
-theta_dip = pi/8;
+theta_dip = pi/2;
 phi_dip = pi/2;
 
-
+% n1 = 1.5;	% PS or SiO2
+% n2 = 1;		% air
 
 %% Create variables
 
@@ -24,6 +25,11 @@ u_dip = [sin(theta_dip)*cos(phi_dip); ...
 % observation direction
 thetas_obs = linspace(0,pi,1e2);
 phis_obs = linspace(0,2*pi,1e2);
+
+% 
+% % transmission coefficients at interfaec
+% t_s = (2*n2*cos(theta_obs))./(n1*cos(theta_obs)+n_2*cos(theta_obs2));
+% t_p = (2*n1*cos(theta_obs))./(n1*cos(theta_obs2)+n_2*cos(theta_obs));
 
 % electric field from definitions
 Edef_tot = zeros(length(thetas_obs),length(phis_obs));	% norme du champ electrique
@@ -154,20 +160,25 @@ end
 figure
 patternCustom(Edef_tot',rad2deg(thetas_obs), rad2deg(phis_obs))
 
-figure
-nexttile
-imagesc(rad2deg(Simu.thetaphi_obs(1,:)),rad2deg(Simu.thetaphi_obs(2,:)),Simu.Edef')
-colorbar; caxis([0 1])
-nexttile
-imagesc(rad2deg(Simu.thetaphi_obs(1,:)),rad2deg(Simu.thetaphi_obs(2,:)),Simu.Edef_s')
-colorbar; caxis([0 1])
-nexttile
-imagesc(rad2deg(Simu.thetaphi_obs(1,:)),rad2deg(Simu.thetaphi_obs(2,:)),Simu.Edef_p')
-colorbar; caxis([0 1])
+% figure
+% nexttile
+% imagesc(rad2deg(Simu.thetaphi_obs(1,:)),rad2deg(Simu.thetaphi_obs(2,:)),Simu.Edef')
+% colorbar; caxis([0 1])
+% nexttile
+% imagesc(rad2deg(Simu.thetaphi_obs(1,:)),rad2deg(Simu.thetaphi_obs(2,:)),Simu.Edef_s')
+% colorbar; caxis([0 1])
+% nexttile
+% imagesc(rad2deg(Simu.thetaphi_obs(1,:)),rad2deg(Simu.thetaphi_obs(2,:)),Simu.Edef_p')
+% colorbar; caxis([0 1])
 
 figure('Position',[1377 114.6000 687.2000 1.0176e+03], 'Color','w');
 tiledlayout('flow','TileSpacing','compact','Padding','compact');
 
+% 
+% azel = phitheta2azel([rad2deg(phis_obs);rad2deg(thetas_obs)],false);
+% 
+nexttile
+[x,y,z] = spherical2cart(
 
 nexttile
 p=pcolor(rad2deg(thetas_obs)-rad2deg(theta_dip),rad2deg(phis_obs)-rad2deg(phi_dip),Edef_tot');
@@ -256,10 +267,23 @@ ax=gca;
 ll = length(ax.Children); cg = clrmp(ll);%cgrad3([140 81 10]./255, [0.8 0.8 0.8], [1 102 94]./255, ll);
 ax.ColorOrder = cg;
 
-sgtitle(sprintf('Simulation of E from dipole with \\Theta = %d° and \\Phi = %d°: %s',round(rad2deg(theta_dip)), round(rad2deg(phi_dip)),mode))
+sgtitle(sprintf('Simulation of E from dipole with \\Theta = %.0f° and \\Phi = %.0f°: %s',round(rad2deg(theta_dip)), round(rad2deg(phi_dip)),mode))
 end
 
 function DOP = getDOP(Evsphi)
 	res = (max(Evsphi)-min(Evsphi))./(max(Evsphi)+min(Evsphi));
 DOP = res;
+end
+
+
+function [x, y, z] = spherical2cart(r, theta, rho)
+x = zeros(1,length(r));
+y = zeros(1,length(r));
+z = zeros(1,length(r));
+
+for i=1:length(x)
+	x(i) = r(i)*sin(theta(i))*sin(phi(i));
+	y(i) = r(i)*sin(theta(i))*cos(phi(i));
+	z(i) = r(i)*cos(theta(i));
+end
 end
