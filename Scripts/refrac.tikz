@@ -1,0 +1,59 @@
+%!TeX spellcheck = en_GB
+%!TeX encoding = UTF-8
+%!TeX root = ../../main.tex
+%
+% This file was created with a modified version of matlab2tikz on 2022-06-07 14:50:27.
+%
+%TikZ file created on 07-Jun-2022 14:50:27
+%
+\definecolor{mycolor1}{rgb}{0.00000,0.44700,0.74100}%
+\definecolor{mycolor2}{rgb}{0.85000,0.32500,0.09800}%
+\definecolor{mycolor3}{rgb}{0.92900,0.69400,0.12500}%
+\definecolor{mycolor4}{rgb}{0.49400,0.18400,0.55600}%
+\definecolor{mycolor5}{rgb}{0.46600,0.67400,0.18800}%
+%
+\begin{tikzpicture}
+
+\begin{axis}[%
+width=0.958\thewidth,
+height=\thewidth,
+at={(0\thewidth,0\thewidth)},
+scale only axis,
+xmin=0.00000e+00,
+xmax=9.00000e+01,
+xlabel style={font=\color{white!15!black}},
+xlabel={$\text{Incidence angle }\theta{}_{\text{in}}$},
+ymin=0.00000e+00,
+ymax=9.00000e+01,
+ylabel style={font=\color{white!15!black}},
+ylabel={$\text{Refracted angle }\theta{}_{\text{r}}$},
+title style={font=\bfseries},
+title={$\text{Medium 1 n}_\text{1}\text{ = 1.50, medium 2 n}_\text{2}\text{ = 1.00}$},
+legend style={legend cell align=left, align=left, draw=white!15!black}
+]
+\addplot [color=mycolor1]
+  table[]{refrac-1.tsv};
+\addlegendentry{$\text{1-\textgreater{}2}$}
+
+\addplot [color=mycolor2]
+  table[]{refrac-2.tsv};
+\addlegendentry{NA = 0.20}
+
+\addplot [color=mycolor3]
+  table[]{refrac-3.tsv};
+\addlegendentry{NA = 0.40}
+
+\addplot [color=mycolor4]
+  table[]{refrac-4.tsv};
+\addlegendentry{NA = 0.60}
+
+\addplot [color=mycolor5]
+  table[]{refrac-5.tsv};
+\addlegendentry{NA = 0.80}
+
+\addplot [color=blue, dashdotted]
+  table[]{refrac-6.tsv};
+\addlegendentry{TIR}
+
+\end{axis}
+\end{tikzpicture}%
