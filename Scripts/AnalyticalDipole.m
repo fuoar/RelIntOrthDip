@@ -1,5 +1,5 @@
 clear all
-close all
+%close all
 clc
 clrmp = @(x) brewermap(x,"PuOr");
 
@@ -178,45 +178,12 @@ Simu.dip.y = y;
 Simu.dip.z = z;
 
 %%
-%
-%
-% thistheta_obs = pi/2;
-% thisphi_obs=0;
-%%%%% get number of thetas to sum based on NA
-theta2lim = asin(NA./n2);
-% theta1lim = asin(n2/n1.*sin(theta2lim));
-%
-% numtheta = round(theta1lim./mean(diff(thetas_obs)));
-% %numtheta2 = round(theta1lim./mean(diff(phis_obs)));
-%
-% % find index thetaobs
-% [~,id]=min(abs(thetas_obs-thistheta_obs));
-% %[~,id2]=min(abs(phis_obs-thisphi_obs));
-%
-% lims1 = max(1,id-numtheta):min(id+numtheta);
-% %lims2 = max(1,id2-numtheta2):min(id2+numtheta2);
-
 figure('Color','w')
 nexttile
 yy=squeeze(sum(squeeze(sum(Simu.Pol(:,:,:),1)),1));
 
 polarplot(alpha,yy)
 title(sprintf('\\Theta_{dip} - \\Theta_{obs} = %.1f°', rad2deg(theta_dip-thistheta_obs)))
-lt=length(thetas_obs);
-%
-% [~,id]=min(abs(thetas_obs-mod(thistheta_obs+pi/2,pi)));
-%
-%
-% size(Simu.Pol([id:id+5],:,:))
-% size(squeeze(sum(Simu.Pol(id:id+5,:,:),1)))
-% size(squeeze(sum(squeeze(sum(Simu.Pol(id:id+5,:,:),1)),1)))
-%
-% yy=squeeze(sum(squeeze(sum(Simu.Pol(1:end,:,:),1)),1));
-% nexttile
-% polarplot(alpha, yy)
-% title(sprintf('\\Theta_{dip} - \\Theta_{obs} =  %.1f°', rad2deg(theta_dip-thetas_obs(id))))
-%
-%
 
 
 
@@ -254,148 +221,132 @@ switch mode
 		Edef_p = Simu.Edef_p;
 
 end
-%
-% figure
-% patternCustom(Edef_tot',rad2deg(thetas_obs), rad2deg(phis_obs))
-
-% figure
-% nexttile
-% imagesc(rad2deg(Simu.thetaphi_obs(1,:)),rad2deg(Simu.thetaphi_obs(2,:)),Simu.Edef')
-% colorbar; caxis([0 1])
-% nexttile
-% imagesc(rad2deg(Simu.thetaphi_obs(1,:)),rad2deg(Simu.thetaphi_obs(2,:)),Simu.Edef_s')
-% colorbar; caxis([0 1])
-% nexttile
-% imagesc(rad2deg(Simu.thetaphi_obs(1,:)),rad2deg(Simu.thetaphi_obs(2,:)),Simu.Edef_p')
-% colorbar; caxis([0 1])
-
 figure('Position',[712.2000 49 1.3520e+03 1.0832e+03], 'Color','w');
 tiledlayout('flow','TileSpacing','compact','Padding','compact');
 
-%
-% azel = phitheta2azel([rad2deg(phis_obs);rad2deg(thetas_obs)],false);
-%
+
 nexttile([2 2])
 [x,y,z] = spherical2cart(Edef_tot.^2,thetas_obs,phis_obs);
 s=surf(x,y,z,Edef_tot);
-%s=contour3(x,y,z,Edef_tot,100);
+
 s(1).EdgeColor='none';
 colorbar; colormap(clrmp([]))
 pbaspect([1 1 1]);xlim([-1 1]); ylim([-1 1]); zlim([-1 1])
-hold on
-%%contour on yz plane
-% [C,h]=contour3(x,y,z);
-% hpatch = get(h,'Children');
-% for i = 1:length(hpatch)
-%       ch = hpatch(i);
-%       xdata = get(ch,'Xdata'); %
-%       ydata = get(ch,'Ydata');
-%       set(ch,'Xdata',zeros(size(xdata))+xmax);
-%       set(ch,'Zdata',ydata);
-%       set(ch,'Ydata',xdata);
-% end
-% %%contour on xz plane
-% [C,h]=contour(x,z,y);
-% hpatch = get(h,'Children');
-% for i = 1:length(hpatch)
-%       ch = hpatch(i);
-%       xdata = get(ch,'Xdata'); %
-%       ydata = get(ch,'Ydata');
-%       set(ch,'Ydata',zeros(size(ydata))+ymax);
-%       set(ch,'Zdata',ydata);
-%       set(ch,'Xdata',xdata);
-% end
-%
+
+
+myPolarPlot(thetas_obs,phis_obs,Edef_tot,2,clrmp,'|E| = f(\Theta_{obs}-\Theta_{dip}) varying \Phi_{obs}')
 % nexttile
-% p=pcolor(rad2deg(thetas_obs)-rad2deg(theta_dip),rad2deg(phis_obs)-rad2deg(phi_dip),Edef_tot');
-% p.EdgeColor = 'none';
-% colorbar; caxis([0 1]);
-% xlabel('\Theta_{obs} - \Theta_{dip}','Interpreter','tex');
-% ylabel('\Phi_{obs} - \Phi_{dip}','Interpreter','tex');
-%
-% title('Norm of E vs \Theta_{obs} and \Phi_{obs}','interpreter','tex')
-% subtitle(sprintf('\\Theta_{dip} = %d and \\Phi_{dip} = %d', rad2deg(theta_dip), rad2deg(phi_dip)));%,'HorizontalAlignment','left');
-%
-% ax=gca; ax.TitleHorizontalAlignment = 'left';
-% %colormap(brewermap([],"PuOr"))
-%
-%
+% for i=1:5:size(Edef_tot,2)
+% 	polarplot(thetas_obs-theta_dip,Edef_tot(:,i));
+% 	if i==1; hold on; end
+% end
+% thetalim([0 180]-rad2deg(theta_dip)); title('|E| = f(\Theta_{obs}-\Theta_{dip}) varying \Phi_{obs}');
+% ax=gca;
+% ll = length(ax.Children); cg = clrmp(ll);
+% ax.ColorOrder = cg;
+
+
+myPolarPlot(thetas_obs,phis_obs,Edef_tot,1,clrmp,...
+	'|E| = f(\Phi_{obs}) varying \Theta_{obs}')
+% 
 % nexttile
-% ss=surfc(rad2deg(thetas_obs), rad2deg(phis_obs), Edef_tot');
-% ss(1).EdgeColor='none';
-% xlabel('\Theta_{obs}','Interpreter','tex');
-% ylabel('\Phi_{obs}','Interpreter','tex');
-% zlabel('|E|')
+% for i=1:5:size(Edef_tot,1)
+% 	polarplot(phis_obs,Edef_tot(i,:));
+% 	if i==1; hold on; end
+% end
+% title('|E| = f(\Phi_{obs}) varying \Theta_{obs}')
+% ax=gca;
+% ll = length(ax.Children); cg = clrmp(ll);
+% ax.ColorOrder = cg;
 
 
 
-nexttile
-for i=1:5:size(Edef_tot,2)
-	polarplot(thetas_obs-theta_dip,Edef_tot(:,i));%, 'Color',cg(i,:))
-	if i==1; hold on; end
-end
-thetalim([0 180]-rad2deg(theta_dip)); title('|E| = f(\Theta_{obs}-\Theta_{dip}) varying \Phi_{obs}');
-ax=gca;
-ll = length(ax.Children); cg = clrmp(ll);%cgrad3([140 81 10]./255, [0.8 0.8 0.8], [1 102 94]./255, ll);
-ax.ColorOrder = cg;
+myPolarPlot(thetas_obs,phis_obs,Edef_s,2,clrmp,...
+	'|E_{s\Phi}| = f(\Theta_{obs})')
+% 
+% nexttile
+% for i=1:5:size(Edef_s,2)
+% 	polarplot(thetas_obs,Edef_s(:,i));
+% 	if i==1; hold on; end
+% end
+% thetalim([0 180]); title('|E_{s\Phi}| = f(\Theta_{obs})');
+% ax=gca;
+% ll = length(ax.Children); cg = clrmp(ll);
+% ax.ColorOrder = cg;
 
-nexttile
-for i=1:5:size(Edef_tot,1)
-	polarplot(phis_obs,Edef_tot(i,:));
-	if i==1; hold on; end
-end
-title('|E| = f(\Phi_{obs}) varying \Theta_{obs}')
-ax=gca;
-ll = length(ax.Children); cg = clrmp(ll);%cgrad3([140 81 10]./255, [0.8 0.8 0.8], [1 102 94]./255, ll);
-ax.ColorOrder = cg;
-
-
-nexttile
-for i=1:5:size(Edef_s,2)
-	polarplot(thetas_obs,Edef_s(:,i));%, 'Color',cg(i,:))
-	if i==1; hold on; end
-end
-thetalim([0 180]); title('|E_{s\Phi}| = f(\Theta_{obs})');
-ax=gca;
-ll = length(ax.Children); cg = clrmp(ll);%cgrad3([140 81 10]./255, [0.8 0.8 0.8], [1 102 94]./255, ll);
-ax.ColorOrder = cg;
-
-nexttile
-for i=1:5:size(Edef_s,1)
-	polarplot(phis_obs,Edef_s(i,:));
-	if i==1; hold on; end
-end
-title('|E_{s\Phi}| = f(\Phi_{obs})')
-ax=gca;
-ll = length(ax.Children); cg = clrmp(ll);%cgrad3([140 81 10]./255, [0.8 0.8 0.8], [1 102 94]./255, ll);
-ax.ColorOrder = cg;
+myPolarPlot(thetas_obs,phis_obs,Edef_s,1,clrmp,...
+	'|E_{s\Phi}| = f(\Phi_{obs})')
+% 
+% nexttile
+% for i=1:5:size(Edef_s,1)
+% 	polarplot(phis_obs,Edef_s(i,:));
+% 	if i==1; hold on; end
+% end
+% title('|E_{s\Phi}| = f(\Phi_{obs})')
+% ax=gca;
+% ll = length(ax.Children); cg = clrmp(ll);
+% ax.ColorOrder = cg;
 
 
 nexttile
 funprep
 
-nexttile
-for i=1:5:size(Edef_p,2)
-	polarplot(thetas_obs,Edef_p(:,i));%, 'Color',cg(i,:))
-	if i==1; hold on; end
-end
-thetalim([0 180]); title('|E_{p\Theta}| = f(\Theta_{obs})');
-ax=gca;
-ll = length(ax.Children); cg = clrmp(ll);%cgrad3([140 81 10]./255, [0.8 0.8 0.8], [1 102 94]./255, ll);
-ax.ColorOrder = cg;
+myPolarPlot(thetas_obs,phis_obs,Edef_p,2,clrmp,...
+	'|E_{p\Theta}| = f(\Theta_{obs})')
 
-nexttile
-for i=1:5:size(Edef_p,1)
-	polarplot(phis_obs,Edef_p(i,:));
-	if i==1; hold on; end
-end
-title('|E_{p, u_\Theta}| = f(\Phi_{obs})')
-ax=gca;
-ll = length(ax.Children); cg = clrmp(ll);%cgrad3([140 81 10]./255, [0.8 0.8 0.8], [1 102 94]./255, ll);
-ax.ColorOrder = cg;
+% nexttile
+% for i=1:5:size(Edef_p,2)
+% 	polarplot(thetas_obs,Edef_p(:,i));
+% 	if i==1; hold on; end
+% end
+% thetalim([0 180]); title('|E_{p\Theta}| = f(\Theta_{obs})');
+% ax=gca;
+% ll = length(ax.Children); cg = clrmp(ll);
+% ax.ColorOrder = cg;
+
+
+
+myPolarPlot(thetas_obs,phis_obs,Edef_p,1,clrmp,...
+	'|E_{p, u_\Theta}| = f(\Phi_{obs})')
+% 
+% 
+% nexttile
+% for i=1:5:size(Edef_p,1)
+% 	polarplot(phis_obs,Edef_p(i,:));
+% 	if i==1; hold on; end
+% end
+% title('|E_{p, u_\Theta}| = f(\Phi_{obs})')
+% ax=gca;
+% ll = length(ax.Children); cg = clrmp(ll);
+% ax.ColorOrder = cg;
 
 sgtitle(sprintf('Simulation of E from dipole with \\Theta = %.0f° and \\Phi = %.0f°: %s',round(rad2deg(theta_dip)), round(rad2deg(phi_dip)),mode),'FontWeight','bold')
 end
+
+
+
+function myPolarPlot(theta, phi, E,n,clrmp, mytitle)
+nexttile
+for i=1:5:size(E,n)
+	switch n
+		case 2
+			polarplot(theta,E(:,i));
+		case 1
+			polarplot(phi,E(i,:));
+	end
+	if i==1; hold on; end
+end
+switch n
+	case 2
+		thetalim([0 180]); title(mytitle);
+	case 1
+		title(mytitle)
+end
+ax=gca;
+ll = length(ax.Children); cg = clrmp(ll);
+ax.ColorOrder = cg;
+end
+
 
 function DOP = getDOP(Evsphi)
 res = (max(Evsphi)-min(Evsphi))./(max(Evsphi)+min(Evsphi));
