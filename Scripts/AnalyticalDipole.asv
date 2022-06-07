@@ -10,9 +10,16 @@ clrmp = @(x) brewermap(x,"PuOr");
 %% Parameters
 
 % dipole orientation
-theta_dip = 0;
+theta_dip = pi/2;
 phi_dip = pi/2;
 
+
+% vary theta dipole
+theta_dips = linspace(0,pi/2,1e3);
+
+DOPDOP = [];
+figure
+for theta_dip=theta_dips
 
 NA = 0.6;
 
@@ -52,6 +59,7 @@ Emat_p = zeros(length(thetas_obs),length(phis_obs));	% norme du champ selon p
 Emat_3tot = zeros(length(thetas_obs),length(phis_obs),3);
 
 Pol = zeros(length(thetas_obs(thetas_obs<=theta1lim)),length(phis_obs),1e2);
+%DOP = zeros(length(thetas_obs(thetas_obs<=theta1lim)),length(phis_obs));
 
 %% loop over all observation directions to get emission pattern
 for i=1:length(thetas_obs)
@@ -134,16 +142,24 @@ for i=1:length(thetas_obs)
 					0];
 
 				%%% from def
-				Pol(i,j,kk) = dot(Eraw,u_alpha).^2.*rho;
-			end
-		end
+				rres = dot(Eraw,u_alpha).^2.*rho;
+				
 
+				Pol(i,j,kk) = rres;
+			end
+%getDOP(Pol(i,j,:)))
+ 				%Imax = max(squeeze(Pol(i,j,:)))
+ 				%Imin = min(squeeze(Pol(i,j,:)))
+				%DOPDOP = [DOPDOP (Imax-Imin)./(Imax+Imin)];
+			%DOP(i,j) = getDOP(squeeze(Pol(i,j,:)));
+		end%
 
 	end
-	DOP(i) = getDOP(Emat_tot(i,:));
+	
 end
 
-
+SumPolars = squeeze(sum(squeeze(sum(Pol(:,:,:),1)),1));
+DOPDOP = [DOPDOP getDOP(SumPolars)];
 
 % figure
 %% Store simulation results
@@ -165,29 +181,46 @@ Simu.Emat_p = Emat_p;
 
 
 Simu.Pol = Pol;
+Simu.DOP = DOPDOP;
 
 
 
 %% Show calculated results
 
 
-[x,y,z]=PlotResults(Simu,'fromdef',clrmp);
+%[x,y,z]=PlotResults(Simu,'fromdef',clrmp);
 
-Simu.dip.x = x;
-Simu.dip.y = y;
-Simu.dip.z = z;
+%Simu.dip.x = x;
+%Simu.dip.y = y;
+%Simu.dip.z = z;
 
 %%
-figure('Color','w')
-nexttile
+%figure('Color','w')
+%nexttile
 yy=squeeze(sum(squeeze(sum(Simu.Pol(:,:,:),1)),1));
 
-polarplot(alpha,yy)
+polarplot(alpha,yy)%./max(max(yy)))
 title(sprintf('\\Theta_{dip} - \\Theta_{obs} = %.1f°', rad2deg(theta_dip-thistheta_obs)))
+hold on
+end
+
+ax=gca; ll = length(ax.Children); ax.ColorOrder = clrmp(ll);
 
 
 
+figure
+nexttile
+imagesc(rad2deg(thetas_obs(thetas_obs<theta1lim)),rad2deg(phis_obs),Simu.DOP)
+colorbar
+nexttile
+plot(max(Simu.DOP,1))
+nexttile
+plot(max(Simu.DOP,2))
 
+
+figure
+nexttile
+plot(rad2deg(theta_dips),DOPDOP)
 %% Function
 
 %clearvars -except Simu clrmp
@@ -199,24 +232,17 @@ switch mode
 	case 'Lethiec'
 		thetas_obs = Simu.theta_obs;
 		phis_obs = Simu.phi_obs;
-
 		theta_dip = Simu.thetaphi_dip(1);
 		phi_dip = Simu.thetaphi_dip(2);
-
 		Edef_tot = Simu.Emat;
-
 		Edef_s = Simu.Emat_s;
 		Edef_p = Simu.Emat_p;
-
 	case 'fromdef'
 		thetas_obs = Simu.theta_obs;
 		phis_obs = Simu.phi_obs;
-
 		theta_dip = Simu.thetaphi_dip(1);
 		phi_dip = Simu.thetaphi_dip(2);
-
 		Edef_tot = Simu.Edef;
-
 		Edef_s = Simu.Edef_s;
 		Edef_p = Simu.Edef_p;
 
@@ -228,65 +254,22 @@ tiledlayout('flow','TileSpacing','compact','Padding','compact');
 nexttile([2 2])
 [x,y,z] = spherical2cart(Edef_tot.^2,thetas_obs,phis_obs);
 s=surf(x,y,z,Edef_tot);
-
 s(1).EdgeColor='none';
 colorbar; colormap(clrmp([]))
 pbaspect([1 1 1]);xlim([-1 1]); ylim([-1 1]); zlim([-1 1])
 
 
-myPolarPlot(thetas_obs,phis_obs,Edef_tot,2,clrmp,'|E| = f(\Theta_{obs}-\Theta_{dip}) varying \Phi_{obs}')
-% nexttile
-% for i=1:5:size(Edef_tot,2)
-% 	polarplot(thetas_obs-theta_dip,Edef_tot(:,i));
-% 	if i==1; hold on; end
-% end
-% thetalim([0 180]-rad2deg(theta_dip)); title('|E| = f(\Theta_{obs}-\Theta_{dip}) varying \Phi_{obs}');
-% ax=gca;
-% ll = length(ax.Children); cg = clrmp(ll);
-% ax.ColorOrder = cg;
-
+myPolarPlot(thetas_obs,phis_obs,Edef_tot,2,clrmp,...
+	'|E| = f(\Theta_{obs}-\Theta_{dip}) varying \Phi_{obs}')
 
 myPolarPlot(thetas_obs,phis_obs,Edef_tot,1,clrmp,...
 	'|E| = f(\Phi_{obs}) varying \Theta_{obs}')
-% 
-% nexttile
-% for i=1:5:size(Edef_tot,1)
-% 	polarplot(phis_obs,Edef_tot(i,:));
-% 	if i==1; hold on; end
-% end
-% title('|E| = f(\Phi_{obs}) varying \Theta_{obs}')
-% ax=gca;
-% ll = length(ax.Children); cg = clrmp(ll);
-% ax.ColorOrder = cg;
-
-
 
 myPolarPlot(thetas_obs,phis_obs,Edef_s,2,clrmp,...
 	'|E_{s\Phi}| = f(\Theta_{obs})')
-% 
-% nexttile
-% for i=1:5:size(Edef_s,2)
-% 	polarplot(thetas_obs,Edef_s(:,i));
-% 	if i==1; hold on; end
-% end
-% thetalim([0 180]); title('|E_{s\Phi}| = f(\Theta_{obs})');
-% ax=gca;
-% ll = length(ax.Children); cg = clrmp(ll);
-% ax.ColorOrder = cg;
 
 myPolarPlot(thetas_obs,phis_obs,Edef_s,1,clrmp,...
 	'|E_{s\Phi}| = f(\Phi_{obs})')
-% 
-% nexttile
-% for i=1:5:size(Edef_s,1)
-% 	polarplot(phis_obs,Edef_s(i,:));
-% 	if i==1; hold on; end
-% end
-% title('|E_{s\Phi}| = f(\Phi_{obs})')
-% ax=gca;
-% ll = length(ax.Children); cg = clrmp(ll);
-% ax.ColorOrder = cg;
-
 
 nexttile
 funprep
@@ -294,34 +277,11 @@ funprep
 myPolarPlot(thetas_obs,phis_obs,Edef_p,2,clrmp,...
 	'|E_{p\Theta}| = f(\Theta_{obs})')
 
-% nexttile
-% for i=1:5:size(Edef_p,2)
-% 	polarplot(thetas_obs,Edef_p(:,i));
-% 	if i==1; hold on; end
-% end
-% thetalim([0 180]); title('|E_{p\Theta}| = f(\Theta_{obs})');
-% ax=gca;
-% ll = length(ax.Children); cg = clrmp(ll);
-% ax.ColorOrder = cg;
-
-
-
-myPolarPlot(thetas_obs,phis_obs,Edef_p,2,clrmp,...
-	'|E_{p\Theta}| = f(\Theta_{obs})')
-
-nexttile
-for i=1:5:size(Edef_p,1)
-	polarplot(phis_obs,Edef_p(i,:));
-	if i==1; hold on; end
-end
-title('|E_{p, u_\Theta}| = f(\Phi_{obs})')
-ax=gca;
-ll = length(ax.Children); cg = clrmp(ll);
-ax.ColorOrder = cg;
+myPolarPlot(thetas_obs,phis_obs,Edef_p,1,clrmp,...
+	'|E_{p, u_\Theta}| = f(\Phi_{obs})')
 
 sgtitle(sprintf('Simulation of E from dipole with \\Theta = %.0f° and \\Phi = %.0f°: %s',round(rad2deg(theta_dip)), round(rad2deg(phi_dip)),mode),'FontWeight','bold')
 end
-
 
 
 function myPolarPlot(theta, phi, E,n,clrmp, mytitle)
@@ -347,8 +307,8 @@ ax.ColorOrder = cg;
 end
 
 
-function DOP = getDOP(Evsphi)
-res = (max(Evsphi)-min(Evsphi))./(max(Evsphi)+min(Evsphi));
+function DOP = getDOP(x)
+res = (max(x)-min(x))./(max(x)+min(x));
 DOP = res;
 end
 
