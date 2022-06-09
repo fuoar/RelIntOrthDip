@@ -1,0 +1,45 @@
+%!TeX spellcheck = en_GB
+%!TeX encoding = UTF-8
+%!TeX root = ../../main.tex
+%
+% This file was created with a modified version of matlab2tikz on 2022-06-08 12:41:20.
+%
+%TikZ file created on 08-Jun-2022 12:41:19
+%
+\definecolor{mycolor1}{rgb}{0.00000,0.44700,0.74100}%
+\definecolor{mycolor2}{rgb}{0.85000,0.32500,0.09800}%
+%
+\begin{tikzpicture}
+
+\begin{axis}[%
+width=0.951\thewidth,
+height=\thewidth,
+at={(0\thewidth,0\thewidth)},
+scale only axis,
+xmin=0.00000e+00,
+xmax=9.00000e+01,
+ymin=0.00000e+00,
+ymax=1.00000e+00
+]
+\addplot [color=mycolor1, forget plot]
+  table[]{DOPvstheta-1.tsv};
+\addplot [color=mycolor2, forget plot]
+  table[]{DOPvstheta-2.tsv};
+\end{axis}
+
+\begin{axis}[%
+width=1.227\thewidth,
+height=1.227\thewidth,
+at={(-0.16\thewidth,-0.135\thewidth)},
+scale only axis,
+xmin=0.00000e+00,
+xmax=1.00000e+00,
+ymin=0.00000e+00,
+ymax=1.00000e+00,
+axis line style={draw=none},
+ticks=none,
+axis x line*=bottom,
+axis y line*=left
+]
+\end{axis}
+\end{tikzpicture}%

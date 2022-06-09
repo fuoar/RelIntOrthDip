@@ -35,7 +35,7 @@ plot(rad2deg(thetas1), fn12(thetas1),'DisplayName','1->2')
 hold on
 %plot(rad2deg(thetas1), fn21(thetas1),'DisplayName','2->1')
 legend
-for NA=[0.25:0.25:1 0.65]
+for NA=[0.2:0.2:0.8]
 %NA = .65;
 theta2lim = asin(NA./n2);
 thetas2lim = linspace(0,theta2lim,1e2);

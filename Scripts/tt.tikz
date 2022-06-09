@@ -1,0 +1,143 @@
+%!TeX spellcheck = en_GB
+%!TeX encoding = UTF-8
+%!TeX root = ../../main.tex
+%
+% This file was created with a modified version of matlab2tikz on 2022-06-08 10:53:20.
+%
+%TikZ file created on 08-Jun-2022 10:53:19
+%
+\definecolor{mycolor1}{rgb}{0.49804,0.23137,0.03137}%
+\definecolor{mycolor2}{rgb}{0.70196,0.34510,0.02353}%
+\definecolor{mycolor3}{rgb}{0.87843,0.50980,0.07843}%
+\definecolor{mycolor4}{rgb}{0.99216,0.72157,0.38824}%
+\definecolor{mycolor5}{rgb}{0.99608,0.87843,0.71373}%
+\definecolor{mycolor6}{rgb}{0.84706,0.85490,0.92157}%
+\definecolor{mycolor7}{rgb}{0.69804,0.67059,0.82353}%
+\definecolor{mycolor8}{rgb}{0.50196,0.45098,0.67451}%
+%
+\begin{tikzpicture}
+
+\begin{axis}[%
+width=0.432\thewidth,
+height=0.662\thewidth,
+at={(0\thewidth,0\thewidth)},
+scale only axis,
+xmin=-1.50000e+02,
+xmax=1.50000e+02,
+ymin=-1.72500e+02,
+ymax=1.72500e+02,
+axis line style={draw=none},
+ticks=none,
+title style={font=\bfseries},
+title={Raw DOP = 1.0},
+axis x line*=bottom,
+axis y line*=left
+]
+
+\addplot[area legend, draw=white!83!darkgray, fill=white, forget plot]
+table[] {tt-1.tsv}--cycle;
+\addplot [color=white!83!darkgray, line width=1.0pt, forget plot]
+  table[]{tt-2.tsv};
+\addplot [color=white!83!darkgray, line width=1.0pt, forget plot]
+  table[]{tt-3.tsv};
+\addplot [color=white!83!darkgray, line width=1.0pt, forget plot]
+  table[]{tt-4.tsv};
+\addplot [color=white!83!darkgray, line width=1.0pt, forget plot]
+  table[]{tt-5.tsv};
+\addplot [color=white!83!darkgray, line width=1.0pt, forget plot]
+  table[]{tt-6.tsv};
+\addplot [color=white!83!darkgray, line width=1.0pt, forget plot]
+  table[]{tt-7.tsv};
+\addplot [color=white!83!darkgray, line width=1.0pt, forget plot]
+  table[]{tt-8.tsv};
+\addplot [color=white!83!darkgray, line width=1.0pt, forget plot]
+  table[]{tt-9.tsv};
+\addplot [color=white!83!darkgray, line width=1.0pt, forget plot]
+  table[]{tt-10.tsv};
+\addplot [color=mycolor1, forget plot]
+  table[]{tt-11.tsv};
+\addplot [color=mycolor2, forget plot]
+  table[]{tt-12.tsv};
+\addplot [color=mycolor3, forget plot]
+  table[]{tt-13.tsv};
+\addplot [color=mycolor4, forget plot]
+  table[]{tt-14.tsv};
+\addplot [color=mycolor5, forget plot]
+  table[]{tt-15.tsv};
+\addplot [color=mycolor6, forget plot]
+  table[]{tt-16.tsv};
+\addplot [color=mycolor7, forget plot]
+  table[]{tt-17.tsv};
+\addplot [color=mycolor8, forget plot]
+  table[]{tt-18.tsv};
+\end{axis}
+
+\begin{axis}[%
+width=0.432\thewidth,
+height=0.662\thewidth,
+at={(0.568\thewidth,0\thewidth)},
+scale only axis,
+xmin=-1.00000e+00,
+xmax=1.00000e+00,
+ymin=-1.15000e+00,
+ymax=1.15000e+00,
+axis line style={draw=none},
+ticks=none,
+title style={font=\bfseries},
+title={Norm. DOP = 1.0},
+axis x line*=bottom,
+axis y line*=left
+]
+
+\addplot[area legend, draw=white!83!darkgray, fill=white, forget plot]
+table[] {tt-19.tsv}--cycle;
+\addplot [color=white!83!darkgray, line width=1.0pt, forget plot]
+  table[]{tt-20.tsv};
+\addplot [color=white!83!darkgray, line width=1.0pt, forget plot]
+  table[]{tt-21.tsv};
+\addplot [color=white!83!darkgray, line width=1.0pt, forget plot]
+  table[]{tt-22.tsv};
+\addplot [color=white!83!darkgray, line width=1.0pt, forget plot]
+  table[]{tt-23.tsv};
+\addplot [color=white!83!darkgray, line width=1.0pt, forget plot]
+  table[]{tt-24.tsv};
+\addplot [color=white!83!darkgray, line width=1.0pt, forget plot]
+  table[]{tt-25.tsv};
+\addplot [color=white!83!darkgray, line width=1.0pt, forget plot]
+  table[]{tt-26.tsv};
+\addplot [color=white!83!darkgray, line width=1.0pt, forget plot]
+  table[]{tt-27.tsv};
+\addplot [color=mycolor1, forget plot]
+  table[]{tt-28.tsv};
+\addplot [color=mycolor2, forget plot]
+  table[]{tt-29.tsv};
+\addplot [color=mycolor3, forget plot]
+  table[]{tt-30.tsv};
+\addplot [color=mycolor4, forget plot]
+  table[]{tt-31.tsv};
+\addplot [color=mycolor5, forget plot]
+  table[]{tt-32.tsv};
+\addplot [color=mycolor6, forget plot]
+  table[]{tt-33.tsv};
+\addplot [color=mycolor7, forget plot]
+  table[]{tt-34.tsv};
+\addplot [color=mycolor8, forget plot]
+  table[]{tt-35.tsv};
+\end{axis}
+
+\begin{axis}[%
+width=1.29\thewidth,
+height=1.29\thewidth,
+at={(-0.168\thewidth,-0.337\thewidth)},
+scale only axis,
+xmin=0.00000e+00,
+xmax=1.00000e+00,
+ymin=0.00000e+00,
+ymax=1.00000e+00,
+axis line style={draw=none},
+ticks=none,
+axis x line*=bottom,
+axis y line*=left
+]
+\end{axis}
+\end{tikzpicture}%

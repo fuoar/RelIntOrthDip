@@ -1,27 +1,29 @@
 clear all
-%close all
+close all
 clc
 clrmp = @(x) brewermap(x,"PuOr");
 
 % Code to modelise the emission pattern of a dipole
-% in free space depending on its orientation
+% in free space towards z depending on its orientation
 
 
 %% Parameters
 
 % dipole orientation
-theta_dip = pi/2;
-phi_dip = 0;
+theta_dip = 0;
+phi_dip = pi/2;
 
 
 % vary theta dipole
-theta_dips = linspace(0,pi/2,1e1);
-
+theta_dips = linspace(0,pi/2,5e0);
+theta_dips=0;
+%theta_dips=theta_dip;
 DOPDOP = [];
+Int = [];
 figure
 for theta_dip=theta_dips
 
-NA = 0.6;
+NA = 0.5;
 
 n1 = 1.5;	% PS or SiO2
 n2 = 1;		% air
@@ -69,6 +71,7 @@ for i=1:length(thetas_obs)
 		phi_obs = phis_obs(j);
 		theta_obs2 = asin(n2./n1.*sin(theta_obs)); % Snell to get theta_obs2
 
+		
 		% unit vector in observation direction
 		u_obs = [sin(theta_obs)*cos(phi_obs); ...
 			sin(theta_obs)*sin(phi_obs); ...
@@ -98,6 +101,7 @@ for i=1:length(thetas_obs)
 
 		%%%% from def
 		Edef_tot(i,j) = norm(Eraw); % get value
+		if theta_obs<=theta1lim
 		Edef_s(i,j) = norm(E_s*u_s);
 		Edef_p(i,j) = norm(E_p*u_p);
 
@@ -127,6 +131,8 @@ for i=1:length(thetas_obs)
 			0];
 
 		%%%% Updated field after objective
+		E_s = dot(Edef_after_interface, u_s);
+		E_p = dot(Edef_after_interface, u_p);
 		Edef_after_obj = E_s*v_s + E_p*v_p;
 		rho = f*sin(theta_obs2);
 		Eobj = sqrt(n2./cos(theta_obs2)).*Edef_after_obj;
@@ -140,27 +146,20 @@ for i=1:length(thetas_obs)
 				u_alpha = [ cos(alpha(kk));...
 					sin(alpha(kk));...
 					0];
-
-				%%% from def
+				%%% def
 				rres = dot(Eobj,u_alpha).^2.*rho;
-				
-
 				Pol(i,j,kk) = rres;
 			end
-%getDOP(Pol(i,j,:)))
- 				%Imax = max(squeeze(Pol(i,j,:)))
- 				%Imin = min(squeeze(Pol(i,j,:)))
-				%DOPDOP = [DOPDOP (Imax-Imin)./(Imax+Imin)];
-			%DOP(i,j) = getDOP(squeeze(Pol(i,j,:)));
-		end%
+		end
 
 	end
 	
+	end
 end
 
 SumPolars = squeeze(sum(squeeze(sum(Pol(:,:,:),1)),1));
 DOPDOP = [DOPDOP getDOP(SumPolars)];
-
+Int = [Int sum(SumPolars)];
 % figure
 %% Store simulation results
 
@@ -187,36 +186,45 @@ Simu.DOP = DOPDOP;
 
 %% Show calculated results
 
-
-%[x,y,z]=PlotResults(Simu,'fromdef',clrmp);
-
-%Simu.dip.x = x;
-%Simu.dip.y = y;
-%Simu.dip.z = z;
+[x,y,z]=PlotResults(Simu,'fromdef',clrmp);
+% 
+% Simu.dip.x = x;
+% Simu.dip.y = y;
+% Simu.dip.z = z;
 
 %%
-
-%figure('Color','w')
+%figure
 subplot(121)
-yy=squeeze(sum(squeeze(sum(Simu.Pol(:,:,:),1)),1));
-polarplot(alpha,yy)%./max(max(yy)))
+yy=SumPolars;%squeeze(sum(squeeze(sum(Simu.Pol(:,:,:),1)),1));
+polar(alpha,yy)
 hold on
-title(sprintf('\\Theta_{dip} - \\Theta_{obs} = %.1f°', rad2deg(theta_dip-thistheta_obs)))
+title(sprintf('Raw DOP = %.1f', getDOP(yy)))
 
+
+ax=gca; ll = length(ax.Children); ax.ColorOrder = clrmp(ll+2);
+%ax.ThetaZeroLocation='right';ax.ThetaDir='counterclockwise';
 subplot(122)
-polarplot(alpha,yy./max(max(yy)))
+polar(alpha,yy./max(max(yy)))
 hold on
-title(sprintf('\\Theta_{dip} - \\Theta_{obs} = %.1f°', rad2deg(theta_dip-thistheta_obs)))
+title(sprintf('Norm. DOP = %.1f', getDOP(yy./max(max(yy)))))
 
 end
 
-ax=gca; ll = length(ax.Children); ax.ColorOrder = clrmp(ll);
+ax=gca; ll = length(ax.Children); ax.ColorOrder = clrmp(ll+2);
+%ax.ThetaZeroLocation='right'; ax.ThetaDir='counterclockwise';
 
-
-
+% 
+if length(DOPDOP)>1
 figure
 nexttile
+yyaxis left
 plot(rad2deg(theta_dips),DOPDOP)
+ylabel('DOP')
+yyaxis right
+plot(rad2deg(theta_dips),Int./max(Int))
+ylabel('Intensity')
+xlabel('\Theta_{dip} (°)')
+end
 %% Function
 
 %clearvars -except Simu clrmp

@@ -1,0 +1,198 @@
+%!TeX spellcheck = en_GB
+%!TeX encoding = UTF-8
+%!TeX root = ../../main.tex
+%
+% This file was created with a modified version of matlab2tikz on 2022-06-07 21:56:14.
+%
+%TikZ file created on 07-Jun-2022 21:56:12
+%
+\definecolor{mycolor1}{rgb}{0.49804,0.23137,0.03137}%
+\definecolor{mycolor2}{rgb}{0.60372,0.28107,0.02318}%
+\definecolor{mycolor3}{rgb}{0.70196,0.34510,0.02353}%
+\definecolor{mycolor4}{rgb}{0.79214,0.42320,0.01716}%
+\definecolor{mycolor5}{rgb}{0.87843,0.50980,0.07843}%
+\definecolor{mycolor6}{rgb}{0.94939,0.61590,0.23080}%
+\definecolor{mycolor7}{rgb}{0.99216,0.72157,0.38824}%
+\definecolor{mycolor8}{rgb}{1.00000,0.80823,0.55080}%
+\definecolor{mycolor9}{rgb}{0.99608,0.87843,0.71373}%
+\definecolor{mycolor10}{rgb}{0.98561,0.93057,0.84898}%
+\definecolor{mycolor11}{rgb}{0.96863,0.96863,0.96863}%
+\definecolor{mycolor12}{rgb}{0.91191,0.91963,0.95072}%
+\definecolor{mycolor13}{rgb}{0.84706,0.85490,0.92157}%
+\definecolor{mycolor14}{rgb}{0.77652,0.77033,0.87944}%
+\definecolor{mycolor15}{rgb}{0.69804,0.67059,0.82353}%
+\definecolor{mycolor16}{rgb}{0.60353,0.56581,0.75248}%
+\definecolor{mycolor17}{rgb}{0.50196,0.45098,0.67451}%
+\definecolor{mycolor18}{rgb}{0.42000,0.29913,0.61219}%
+\definecolor{mycolor19}{rgb}{0.32941,0.15294,0.53333}%
+%
+\begin{tikzpicture}
+
+\begin{axis}[%
+width=0.432\thewidth,
+height=0.662\thewidth,
+at={(0\thewidth,0\thewidth)},
+scale only axis,
+xmin=-1.50000e+02,
+xmax=1.50000e+02,
+ymin=-1.72500e+02,
+ymax=1.72500e+02,
+axis line style={draw=none},
+ticks=none,
+title style={font=\bfseries},
+title={Raw DOP = 1.0},
+axis x line*=bottom,
+axis y line*=left
+]
+
+\addplot[area legend, draw=white!83!darkgray, fill=white, forget plot]
+table[] {polarvstheta-1.tsv}--cycle;
+\addplot [color=white!83!darkgray, line width=1.0pt, forget plot]
+  table[]{polarvstheta-2.tsv};
+\addplot [color=white!83!darkgray, line width=1.0pt, forget plot]
+  table[]{polarvstheta-3.tsv};
+\addplot [color=white!83!darkgray, line width=1.0pt, forget plot]
+  table[]{polarvstheta-4.tsv};
+\addplot [color=white!83!darkgray, line width=1.0pt, forget plot]
+  table[]{polarvstheta-5.tsv};
+\addplot [color=white!83!darkgray, line width=1.0pt, forget plot]
+  table[]{polarvstheta-6.tsv};
+\addplot [color=white!83!darkgray, line width=1.0pt, forget plot]
+  table[]{polarvstheta-7.tsv};
+\addplot [color=white!83!darkgray, line width=1.0pt, forget plot]
+  table[]{polarvstheta-8.tsv};
+\addplot [color=white!83!darkgray, line width=1.0pt, forget plot]
+  table[]{polarvstheta-9.tsv};
+\addplot [color=white!83!darkgray, line width=1.0pt, forget plot]
+  table[]{polarvstheta-10.tsv};
+\addplot [color=mycolor1, forget plot]
+  table[]{polarvstheta-11.tsv};
+\addplot [color=mycolor2, forget plot]
+  table[]{polarvstheta-12.tsv};
+\addplot [color=mycolor3, forget plot]
+  table[]{polarvstheta-13.tsv};
+\addplot [color=mycolor4, forget plot]
+  table[]{polarvstheta-14.tsv};
+\addplot [color=mycolor5, forget plot]
+  table[]{polarvstheta-15.tsv};
+\addplot [color=mycolor6, forget plot]
+  table[]{polarvstheta-16.tsv};
+\addplot [color=mycolor7, forget plot]
+  table[]{polarvstheta-17.tsv};
+\addplot [color=mycolor8, forget plot]
+  table[]{polarvstheta-18.tsv};
+\addplot [color=mycolor9, forget plot]
+  table[]{polarvstheta-19.tsv};
+\addplot [color=mycolor10, forget plot]
+  table[]{polarvstheta-20.tsv};
+\addplot [color=mycolor11, forget plot]
+  table[]{polarvstheta-21.tsv};
+\addplot [color=mycolor12, forget plot]
+  table[]{polarvstheta-22.tsv};
+\addplot [color=mycolor13, forget plot]
+  table[]{polarvstheta-23.tsv};
+\addplot [color=mycolor14, forget plot]
+  table[]{polarvstheta-24.tsv};
+\addplot [color=mycolor15, forget plot]
+  table[]{polarvstheta-25.tsv};
+\addplot [color=mycolor16, forget plot]
+  table[]{polarvstheta-26.tsv};
+\addplot [color=mycolor17, forget plot]
+  table[]{polarvstheta-27.tsv};
+\addplot [color=mycolor18, forget plot]
+  table[]{polarvstheta-28.tsv};
+\addplot [color=mycolor19, forget plot]
+  table[]{polarvstheta-29.tsv};
+\end{axis}
+
+\begin{axis}[%
+width=0.432\thewidth,
+height=0.662\thewidth,
+at={(0.568\thewidth,0\thewidth)},
+scale only axis,
+xmin=-1.00000e+00,
+xmax=1.00000e+00,
+ymin=-1.15000e+00,
+ymax=1.15000e+00,
+axis line style={draw=none},
+ticks=none,
+title style={font=\bfseries},
+title={Norm. DOP = 1.0},
+axis x line*=bottom,
+axis y line*=left
+]
+
+\addplot[area legend, draw=white!83!darkgray, fill=white, forget plot]
+table[] {polarvstheta-30.tsv}--cycle;
+\addplot [color=white!83!darkgray, line width=1.0pt, forget plot]
+  table[]{polarvstheta-31.tsv};
+\addplot [color=white!83!darkgray, line width=1.0pt, forget plot]
+  table[]{polarvstheta-32.tsv};
+\addplot [color=white!83!darkgray, line width=1.0pt, forget plot]
+  table[]{polarvstheta-33.tsv};
+\addplot [color=white!83!darkgray, line width=1.0pt, forget plot]
+  table[]{polarvstheta-34.tsv};
+\addplot [color=white!83!darkgray, line width=1.0pt, forget plot]
+  table[]{polarvstheta-35.tsv};
+\addplot [color=white!83!darkgray, line width=1.0pt, forget plot]
+  table[]{polarvstheta-36.tsv};
+\addplot [color=white!83!darkgray, line width=1.0pt, forget plot]
+  table[]{polarvstheta-37.tsv};
+\addplot [color=white!83!darkgray, line width=1.0pt, forget plot]
+  table[]{polarvstheta-38.tsv};
+\addplot [color=mycolor1, forget plot]
+  table[]{polarvstheta-39.tsv};
+\addplot [color=mycolor2, forget plot]
+  table[]{polarvstheta-40.tsv};
+\addplot [color=mycolor3, forget plot]
+  table[]{polarvstheta-41.tsv};
+\addplot [color=mycolor4, forget plot]
+  table[]{polarvstheta-42.tsv};
+\addplot [color=mycolor5, forget plot]
+  table[]{polarvstheta-43.tsv};
+\addplot [color=mycolor6, forget plot]
+  table[]{polarvstheta-44.tsv};
+\addplot [color=mycolor7, forget plot]
+  table[]{polarvstheta-45.tsv};
+\addplot [color=mycolor8, forget plot]
+  table[]{polarvstheta-46.tsv};
+\addplot [color=mycolor9, forget plot]
+  table[]{polarvstheta-47.tsv};
+\addplot [color=mycolor10, forget plot]
+  table[]{polarvstheta-48.tsv};
+\addplot [color=mycolor11, forget plot]
+  table[]{polarvstheta-49.tsv};
+\addplot [color=mycolor12, forget plot]
+  table[]{polarvstheta-50.tsv};
+\addplot [color=mycolor13, forget plot]
+  table[]{polarvstheta-51.tsv};
+\addplot [color=mycolor14, forget plot]
+  table[]{polarvstheta-52.tsv};
+\addplot [color=mycolor15, forget plot]
+  table[]{polarvstheta-53.tsv};
+\addplot [color=mycolor16, forget plot]
+  table[]{polarvstheta-54.tsv};
+\addplot [color=mycolor17, forget plot]
+  table[]{polarvstheta-55.tsv};
+\addplot [color=mycolor18, forget plot]
+  table[]{polarvstheta-56.tsv};
+\addplot [color=mycolor19, forget plot]
+  table[]{polarvstheta-57.tsv};
+\end{axis}
+
+\begin{axis}[%
+width=1.29\thewidth,
+height=1.29\thewidth,
+at={(-0.168\thewidth,-0.337\thewidth)},
+scale only axis,
+xmin=0.00000e+00,
+xmax=1.00000e+00,
+ymin=0.00000e+00,
+ymax=1.00000e+00,
+axis line style={draw=none},
+ticks=none,
+axis x line*=bottom,
+axis y line*=left
+]
+\end{axis}
+\end{tikzpicture}%
