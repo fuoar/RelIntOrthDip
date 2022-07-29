@@ -15,8 +15,8 @@ phi_dip = pi/2;
 
 
 % vary theta dipole
-theta_dips = linspace(0,pi/2,5e0);
-theta_dips=0;
+theta_dips = linspace(0,pi/2,5e1);
+% theta_dips=0;
 %theta_dips=theta_dip;
 DOPDOP = [];
 Int = [];
@@ -28,7 +28,7 @@ NA = 0.5;
 n1 = 1.5;	% PS or SiO2
 n2 = 1;		% air
 
-f = 1e-2; % in m 
+f = 1e-1; % in m 
 %% Create variables
 
 %%% by definition we are looking from z+
@@ -137,7 +137,7 @@ for i=1:length(thetas_obs)
 		rho = f*sin(theta_obs2);
 		Eobj = sqrt(n2./cos(theta_obs2)).*Edef_after_obj;
 
-		%%%%%
+		%%%%%appd
 		%%%%% Projection on polariser
 		alpha = linspace(0,2*pi,1.5e2);
 		if theta_obs<theta1lim %%% for all angles within NA
