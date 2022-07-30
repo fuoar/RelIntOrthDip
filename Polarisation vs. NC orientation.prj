@@ -1,14 +1,18 @@
 <deployment-project plugin="plugin.apptool" plugin-version="1.0">
-  <configuration file="C:\Users\Fuoar\Documents\GitHub\RelIntOrthDip\Polarisation vs. NC orientation.prj" location="C:\Users\Fuoar\Documents\GitHub\RelIntOrthDip" name="Polarisation vs. NC orientation" target="target.mlapps" target-name="Package App">
+  <configuration build-checksum="980978491" file="C:\Users\Fuoar\Documents\GitHub\RelIntOrthDip\Polarisation vs. NC orientation.prj" location="C:\Users\Fuoar\Documents\GitHub\RelIntOrthDip" name="Polarisation vs. NC orientation" target="target.mlapps" target-name="Package App">
     <param.appname>Polarisation vs. NC orientation</param.appname>
-    <param.authnamewatermark />
+    <param.authnamewatermark>M.-R. Amara</param.authnamewatermark>
     <param.email />
     <param.company />
-    <param.icon />
-    <param.icons />
+    <param.icon>${PROJECT_ROOT}\Polarisation vs. NC orientation_resources\icon_24.png</param.icon>
+    <param.icons>
+      <file>${PROJECT_ROOT}\Polarisation vs. NC orientation_resources\icon_48.png</file>
+      <file>${PROJECT_ROOT}\Polarisation vs. NC orientation_resources\icon_24.png</file>
+      <file>${PROJECT_ROOT}\Polarisation vs. NC orientation_resources\icon_16.png</file>
+    </param.icons>
     <param.summary />
     <param.description />
-    <param.screenshot>C:\Users\Fuoar\AppData\Local\Temp\tp2f0f23cc_bfde_4c65_b13d_f96fc714db16.png</param.screenshot>
+    <param.screenshot>C:\Users\Fuoar\AppData\Local\Temp\tp8f2fe366_8434_449a_ab79_66ab86868c0c.png</param.screenshot>
     <param.version>1.0</param.version>
     <param.products.name />
     <param.products.id />
@@ -17,11 +21,8 @@
     <param.output>${PROJECT_ROOT}</param.output>
     <param.guid>974a237d-519d-4dee-a978-ccf493be7c1b</param.guid>
     <unset>
-      <param.authnamewatermark />
       <param.email />
       <param.company />
-      <param.icon />
-      <param.icons />
       <param.summary />
       <param.description />
       <param.version />
@@ -34,7 +35,11 @@
     <fileset.main>
       <file>${PROJECT_ROOT}\RelIntOrthDip_GUI.mlapp</file>
     </fileset.main>
-    <fileset.depfun />
+    <fileset.depfun>
+      <file>C:\Users\Fuoar\Documents\GitHub\DataManagement\Scripts\FitTRPLf(T)\kT.m</file>
+      <file>${PROJECT_ROOT}\img.png</file>
+      <file>C:\Users\Fuoar\Documents\MATLAB\Add-Ons\Apps\DataManagement\Google Drive\%NTU%\Setup\LabVIEW\MicroPL\masterPL\data\MFiles\FitFunctions\lorentzian.m</file>
+    </fileset.depfun>
     <fileset.resources />
     <fileset.package />
     <build-deliverables>
